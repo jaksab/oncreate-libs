@@ -22,19 +22,43 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * 
+ * Класс настройки HTTP-клиента
  * @author onCreate
  */
 public class NetSettings {
 
+	/**
+	 * Инициализация HTTP-клиента
+	 */
 	private DefaultHttpClient defaultHttpClient;
 
+	/**
+	 * Единственный экземпляр данного класса, реализуется для паттерна одиночка
+	 */
 	static private NetSettings networkService = null;
 
+	/**
+	 * Закрытый конструктор для паттерна одиночка
+	 */
 	private NetSettings() {
 		defaultHttpClient = getHttpClient();
 	}
 
+	/**
+	 * Реализация паттерна одиночка
+	 * @return экземпляр данного класса
+	 */
+	static public NetSettings getInstance() {
+		if (networkService == null)
+			networkService = new NetSettings();
+		return networkService;
+	}
+	
+	/**
+	 * Метод позволяет определить наличие интернет соединения на устройстве
+	 * @param context - контекст вызова
+	 * @return включен ли интернет на устройстве
+	 */
 	static public boolean isInternetEnabled(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -45,12 +69,10 @@ public class NetSettings {
 			return true;
 	}
 
-	static public NetSettings getInstance() {
-		if (networkService == null)
-			networkService = new NetSettings();
-		return networkService;
-	}
-
+	/**
+	 * Первичная настройка HTTP-клиента
+	 * @return готовый к работе HTTP-клиент
+	 */
 	protected DefaultHttpClient getHttpClient() {
 		if (defaultHttpClient != null)
 			return defaultHttpClient;
@@ -68,9 +90,9 @@ public class NetSettings {
 				registry.register(new Scheme("http", PlainSocketFactory
 						.getSocketFactory(), 80));
 
-				ClientConnectionManager ccm = new ThreadSafeClientConnManager(
-						httpParams, registry);
-
+				//ClientConnectionManager ccm = new ThreadSafeClientConnManager(
+						//httpParams, registry);
+				
 				defaultHttpClient = new DefaultHttpClient();
 				defaultHttpClient.setCookieStore(new BasicCookieStore());
 			} catch (Exception e) {
@@ -81,22 +103,30 @@ public class NetSettings {
 		return defaultHttpClient;
 	}
 
+	/**
+	 * Выполнение непосредственного POST запроса
+	 * @param httpPost - параметры POST запроса
+	 * @return ответ от запрашиваемого ресурса, в случае неудачи null
+	 */
 	public HttpResponse getResponse(HttpPost httpPost) {
 		HttpResponse response = null;
 		try {
 			response = getHttpClient().execute(httpPost);
-		} catch (Exception e) {
-		}
-
+		} catch (Exception e) {}
+		
 		return response;
 	}
 
+	/**
+	 * Выполнение непосредственного GET запроса
+	 * @param httpGet - параметры GET запроса
+	 * @return ответ от запрашиваемого ресурса, в случае неудачи null
+	 */
 	public HttpResponse getResponse(HttpGet httpGet) {
 		HttpResponse response = null;
 		try {
 			response = getHttpClient().execute(httpGet);
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 
 		return response;
 	}
