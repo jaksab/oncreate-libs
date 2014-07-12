@@ -1,8 +1,7 @@
 package ua.com.oncreate.tools;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
 
 public class PriviewActivity extends Activity {
 
