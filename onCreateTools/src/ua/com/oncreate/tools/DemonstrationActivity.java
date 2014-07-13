@@ -14,8 +14,8 @@ import android.widget.EditText;
 public class DemonstrationActivity extends Activity implements OnClickListener, ConnectionListener {
 
 	// URL custom sites
-	private static final String URL_GET = "https://privat24.privatbank.ua/p24/accountorder";
-	private static final String URL_POST = "http://developer.alexanderklimov.ru/android/java/logic_operators.php";
+	private static final String URL_GET = "https://api.github.com";
+	private static final String URL_POST = "https://api.github.com";
 	
 	// Response text
 	private static final String TEXT_FROM = "Response from ";
@@ -59,11 +59,11 @@ public class DemonstrationActivity extends Activity implements OnClickListener, 
 			case R.id.btnGET:
 				net = new Net(this, Net.METHOD_GET, URL_GET, true);
 				// add get parameters to url
-				net.addEntityValue("oper", "prp");
-				net.addEntityValue("avias", "price");
-				net.addEntityValue("region", "04");
-				net.addEntityValue("type", "A95");
-				net.addEntityValue("PUREXML", "");
+				net.addEntityValue("callback", "foo");
+				
+				// you can add headers to GET request
+//				net.addHeader(name, value);
+				
 				//
 				// start connect
 				net.connect(this);
@@ -75,6 +75,11 @@ public class DemonstrationActivity extends Activity implements OnClickListener, 
 				net.setMethod(Net.METHOD_POST);
 				net.setURL(URL_POST);
 				net.setProgressDialogEnable(false);
+				
+				// you can add POST values and headers
+//				net.addEntityValue(name, value);
+//				net.addHeader(name, value);
+				
 				//
 				// start connect
 				net.connect(this);
