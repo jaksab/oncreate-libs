@@ -21,7 +21,7 @@ public class DemonstrationActivity extends Activity implements OnClickListener, 
 	private static final String BEFORE_CONNECT = "Инициализация...\nПодготовка к отправке запроса....";
 	private static final String AFTER_CONNECT_OK = "Respose status OK.\nEntity :\n";
 	private static final String AFTER_CONNECT_BAD = "Respose status BAD.\nMay be internet not work!";
-	private static final String EMPTY_STRING = "";
+	private static final String EMPTY_STRING = "", EMPTY_TEXT = "Empty string";
 	
 	// 
 	private Button btnGet, btnPost;
@@ -84,7 +84,7 @@ public class DemonstrationActivity extends Activity implements OnClickListener, 
 		}
 		else{
 			if(entity == null || entity.equals(EMPTY_STRING))
-				entity = "empty entity";
+				entity = EMPTY_TEXT;
 			edtOutput.setText(AFTER_CONNECT_OK + entity);
 		}
 		

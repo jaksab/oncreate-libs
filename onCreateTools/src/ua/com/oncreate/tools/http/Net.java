@@ -8,19 +8,18 @@ import java.util.Map;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 import ua.com.oncreate.tools.interfaces.ConnectionListener;
 import android.content.Context;
 
 /**
- * <b>Общие положения:</b> 
- * Класс Net разработал Коноваленко А.С. компания onCreate. 2014 г.
- * <b>Цель:</b> 
- * Cоздание простого и в тоже время гибкого инструмента, который управляет HTTP-запросами.
- * <b>Краткое описание:</b>
- * Сформируйте входной пакет при помощи одного лишь конструктора и отправьте запрос методом connect.
+ * <b>Общие положения:</b><br>
+ * Класс Net разработал Коноваленко А.С. компания onCreate. 2014 г.<br>
+ * <b>Цель:</b><br>
+ * Cоздание простого и в тоже время гибкого инструмента, который управляет HTTP-запросами.<br>
+ * <b>Краткое описание:</b><br>
+ * Сформируйте входной пакет при помощи одного лишь конструктора и отправьте запрос методом connect.<br>
  * Интерфейс слушателя ConnectionListener проинформирует Вас перед и после отправки запроса.
  * 
  * @author onCreate
