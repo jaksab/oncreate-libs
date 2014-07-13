@@ -37,5 +37,6 @@ net.connect(new ConnectionListener() {
 `[String entity]` - the entity data of response pakage
 `[String fromUrl]` - the address from the response
 
+######For use json decode functions you must download gson library and include in you project. `https://code.google.com/p/google-gson/downloads/list`
 
 #####See more in DemonstrationActivity in this project.
