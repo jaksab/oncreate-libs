@@ -7,7 +7,7 @@ Create by Konovalenko Andrew, onCreate company.
 
 - If you want use this project as library:
 
-check >> Project - Properties - Android - is Library
+`check >> Project - Properties - Android - is Library`
 
 - Code example:
 
@@ -28,13 +28,14 @@ net.connect(new ConnectionListener() {
 			}
 		});
 ```
-void onStartConnection - called before library send request
-[String toUrl] - the last address of the request
+`void onStartConnection` - called before library send request
+`[String toUrl]` - the last address of the request
 
-void onFinishConnection( - called after library get response
-[String toUrl] - the last address of the request
-[String toUrl] - the last address of the request
-[String toUrl] - the last address of the request
+`void onFinishConnection` - called after library get response
+`[boolean isSuccessful]` - request passed or not, if not response and entity equal null
+`[HttpResponse response]` - the full data of response pakage (entity, headers etc)
+`[String entity]` - the entity data of response pakage
+`[String fromUrl]` - the address from the response
 
 
-See more in DemonstrationActivity in this project.
+#####See more in DemonstrationActivity in this project.
