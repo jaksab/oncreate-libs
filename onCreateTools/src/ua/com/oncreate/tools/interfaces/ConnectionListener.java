@@ -12,7 +12,7 @@ public interface ConnectionListener {
 	/**
 	 * Вызывается перед началом соединения
 	 */
-	public void onStartConnection();
+	public void onStartConnection(String toUrl);
 
 	/**
 	 * Вызывается по окончанию соединения
@@ -23,5 +23,5 @@ public interface ConnectionListener {
 	 *            - строка тела пакета
 	 */
 	public void onFinishConnection(boolean isSuccessful, HttpResponse response,
-			String entity);
+			String entity, String fromUrl);
 }

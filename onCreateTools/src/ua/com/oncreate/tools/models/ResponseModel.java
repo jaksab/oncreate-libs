@@ -16,6 +16,10 @@ public class ResponseModel {
 	 * Тело пакета
 	 */
 	private String entity;
+	/**
+	 * Адрес запроса
+	 */
+	private String url;
 	
 	/**
 	 * Создание пустого экземпляра модели
@@ -25,9 +29,10 @@ public class ResponseModel {
 	/**
 	 * Создание экземпляра модели с параметрами по умолчанию
 	 */
-	public ResponseModel (HttpResponse reponse, String entity){
+	public ResponseModel (HttpResponse reponse, String entity, String url){
 		this.reponse = reponse;
 		this.entity = entity;
+		this.url = url;
 	}
 	
 	/**
@@ -53,6 +58,18 @@ public class ResponseModel {
 	 */
 	public void setEntity(String entity) {
 		this.entity = entity;
+	}
+	/**
+	 * Получить адрес запроса
+	 */
+	public String getUrl() {
+		return url;
+	}
+	/**
+	 * Задать адрес запроса
+	 */
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	
 }

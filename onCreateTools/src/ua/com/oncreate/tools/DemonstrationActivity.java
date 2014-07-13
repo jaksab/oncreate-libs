@@ -14,16 +14,22 @@ import android.widget.EditText;
 public class DemonstrationActivity extends Activity implements OnClickListener, ConnectionListener {
 
 	// URL custom sites
-	private static final String URL_GET = "http://developer.alexanderklimov.ru/android/java/logic_operators.php";
+	private static final String URL_GET = "https://privat24.privatbank.ua/p24/accountorder";
 	private static final String URL_POST = "http://developer.alexanderklimov.ru/android/java/logic_operators.php";
 	
-	//
-	private static final String BEFORE_CONNECT = "Инициализация...\nПодготовка к отправке запроса....";
-	private static final String AFTER_CONNECT_OK = "Respose status OK.\nEntity :\n";
-	private static final String AFTER_CONNECT_BAD = "Respose status BAD.\nMay be internet not work!";
-	private static final String EMPTY_STRING = "", EMPTY_TEXT = "Empty string";
+	// Response text
+	private static final String TEXT_FROM = "Response from ";
+	private static final String BEFORE_CONNECT = "Please wait...\nSending a request to ";
+	private static final String AFTER_CONNECT_OK = "\nRespose status OK.\nEntity:\n\n";
+	private static final String AFTER_CONNECT_BAD = "\nRespose status BAD.\nMay be internet not activated.";
 	
-	// 
+	// Other text
+	private static final String 
+		EMPTY_STRING = "", 
+		EMPTY_TEXT = "Empty string",
+		NEW_LINE = "\n";
+	
+	// View`s declaration
 	private Button btnGet, btnPost;
 	private EditText edtOutput;
 	
@@ -37,7 +43,7 @@ public class DemonstrationActivity extends Activity implements OnClickListener, 
 		
 		// find all view`s
 		btnGet = (Button) findViewById(R.id.btnGET);
-		btnGet = (Button) findViewById(R.id.btnPOST);
+		btnPost = (Button) findViewById(R.id.btnPOST);
 		edtOutput = (EditText) findViewById(R.id.edtOutput);
 		
 		// 
@@ -52,6 +58,12 @@ public class DemonstrationActivity extends Activity implements OnClickListener, 
 			// send a GET whit constructor
 			case R.id.btnGET:
 				net = new Net(this, Net.METHOD_GET, URL_GET, true);
+				// add get parameters to url
+				net.addEntityValue("oper", "prp");
+				net.addEntityValue("avias", "price");
+				net.addEntityValue("region", "04");
+				net.addEntityValue("type", "A95");
+				net.addEntityValue("PUREXML", "");
 				//
 				// start connect
 				net.connect(this);
@@ -62,7 +74,7 @@ public class DemonstrationActivity extends Activity implements OnClickListener, 
 				net = new Net(this);
 				net.setMethod(Net.METHOD_POST);
 				net.setURL(URL_POST);
-				net.setProgressDialogEnable(true);
+				net.setProgressDialogEnable(false);
 				//
 				// start connect
 				net.connect(this);
@@ -72,20 +84,20 @@ public class DemonstrationActivity extends Activity implements OnClickListener, 
 	}
 
 	@Override
-	public void onStartConnection() {
-		edtOutput.setText(BEFORE_CONNECT);
+	public void onStartConnection(String url) {
+		edtOutput.setText(BEFORE_CONNECT + url);
 	}
 
 	@Override
 	public void onFinishConnection(boolean isSuccessful, HttpResponse response,
-			String entity) {
+			String entity, String url) {
 		if(!isSuccessful){
-			edtOutput.setText(AFTER_CONNECT_BAD);
+			edtOutput.setText(TEXT_FROM + url + NEW_LINE + AFTER_CONNECT_BAD);
 		}
 		else{
 			if(entity == null || entity.equals(EMPTY_STRING))
 				entity = EMPTY_TEXT;
-			edtOutput.setText(AFTER_CONNECT_OK + entity);
+			edtOutput.setText(TEXT_FROM + url + NEW_LINE + AFTER_CONNECT_OK + entity);
 		}
 		
 	}

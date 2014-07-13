@@ -133,6 +133,13 @@ public class Net {
 	}
 	
 	/**
+	 * @return метод возвращает адрес запроса
+	 */
+	public String getURL(){
+		return url;
+	}
+	
+	/**
 	 * Добавить заголовок в POST запрос
 	 * @param name - имя заголовка
 	 * @param value - значение заголовка
@@ -207,14 +214,14 @@ public class Net {
 					// Инициализация и запуск задачи, которая реализует 
 					// отправку POST запроса с набором заданных параметров
 					NetTask task = new NetTask(context, post, listener, showDialog);
-					task.execute(url);
+					task.execute();
 				}
 				catch (Exception e) {return false;}
 			}
 			//
 			// Обработка метода GET
 			else if (this.method == METHOD_GET){
-				HttpGet get = new HttpGet(url);
+				HttpGet get = new HttpGet(url);;
 				try {
 					//
 					// Процесс формирование параметрво в адресную строку запроса
@@ -229,6 +236,11 @@ public class Net {
 						add_params += entityValues.get(i).getValue();
 					}
 					
+					if(!add_params.equals(EMPTY_STRING)){
+						setURL(getURL() + add_params);
+						get = new HttpGet(url);
+					}
+					
 					//
 					// Упаковка заголовков в пакет
 					for(int i = 0; i < headers.size(); i++)
@@ -238,7 +250,7 @@ public class Net {
 					// Инициализация и запуск задачи, которая реализует 
 					// отправку GET запроса с набором заданных параметров
 					NetTask task = new NetTask(context, get, listener, showDialog);
-					task.execute(url + add_params); // и присвоение открытых параметров (если имеются)
+					task.execute();
 				}
 				catch (Exception e) {return false;}
 			}

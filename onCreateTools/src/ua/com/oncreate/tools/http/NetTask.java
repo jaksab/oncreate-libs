@@ -1,5 +1,7 @@
 package ua.com.oncreate.tools.http;
 
+import java.net.MalformedURLException;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -36,6 +38,10 @@ public class NetTask extends AsyncTask<String, Void, ResponseModel>{
 	 */
 	private HttpPost httpPost;
 	/**
+	 * Адрес запроса
+	 */
+	private String current_url;
+	/**
 	 * Показывается ли прогресс соединения
 	 */
 	private boolean showDialog;
@@ -56,6 +62,11 @@ public class NetTask extends AsyncTask<String, Void, ResponseModel>{
 		this.httpGet = get;
 		this.taskListener = taskListener;
 		this.showDialog = showDialog;
+		//
+		// Получение последнего сформированного адреса запроса
+		try {
+			current_url = get.getURI().toString();
+		} catch (Exception e) {}
 	}
 	
 	/**
@@ -70,6 +81,11 @@ public class NetTask extends AsyncTask<String, Void, ResponseModel>{
 		this.httpPost = post;
 		this.taskListener = taskListener;
 		this.showDialog = showDialog;
+		//
+		// Получение последнего сформированного адреса запроса
+		try {
+			current_url = post.getURI().toString();
+		} catch (Exception e) {}
 	}
 	
 	@Override
@@ -79,7 +95,7 @@ public class NetTask extends AsyncTask<String, Void, ResponseModel>{
 		//
 		// Уведомление слушателя о начале соединения
 		if(taskListener != null){
-			taskListener.onStartConnection();
+			taskListener.onStartConnection(current_url);
 		}
 		
 		//
@@ -100,7 +116,7 @@ public class NetTask extends AsyncTask<String, Void, ResponseModel>{
 			//
 			// Непосредствено соединение и получение ответа
 			HttpResponse reponse = null;
-			if(httpPost != null)
+			if(httpPost != null)				
 				reponse = NetSettings.getInstance().getResponse(httpPost);
 			else if (httpGet != null)
 				reponse = NetSettings.getInstance().getResponse(httpGet);
@@ -114,7 +130,7 @@ public class NetTask extends AsyncTask<String, Void, ResponseModel>{
 					entityString = EntityUtils.toString(entity);
 			} catch(Exception e){}
 			
-			return new ResponseModel(reponse, entityString);
+			return new ResponseModel(reponse, entityString, current_url);
 		}
 		catch(Exception e){return null;}
 	}
@@ -134,7 +150,7 @@ public class NetTask extends AsyncTask<String, Void, ResponseModel>{
 		if (taskListener != null){
 			boolean isSuccessful = responseModel != null;
 			taskListener.onFinishConnection(isSuccessful, responseModel.getReponse(),
-					responseModel.getEntity());
+					responseModel.getEntity(), responseModel.getUrl());
 		}
 	}
 }
