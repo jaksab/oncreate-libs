@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
+import ua.com.oncreate.tools.gson.GsonUtils;
 import ua.com.oncreate.tools.interfaces.ConnectionListener;
 import android.content.Context;
 
@@ -257,5 +258,15 @@ public class Net {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * ѕарсинг данных из JSON строки в модель с типом type
+	 * @param json - строка JSON
+	 * @param type - тип модели
+	 * @return type модель с выт€нутой информацией из JSON строки
+	 */
+	public <T> T fromJsonToModel(String json, Class<T> typeT){
+		return GsonUtils.gson().fromJson(json, typeT);
 	}
 }

@@ -4,7 +4,6 @@ import org.apache.http.HttpResponse;
 
 /**
  * Слушатель HTTP соединения
- * 
  * @author onCreate
  */
 public interface ConnectionListener {

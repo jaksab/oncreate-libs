@@ -1,7 +1,5 @@
 package ua.com.oncreate.tools.http;
 
-import java.net.MalformedURLException;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -10,7 +8,6 @@ import org.apache.http.util.EntityUtils;
 
 import ua.com.oncreate.tools.interfaces.ConnectionListener;
 import ua.com.oncreate.tools.models.ResponseModel;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -109,7 +106,6 @@ public class NetTask extends AsyncTask<String, Void, ResponseModel>{
 	
 	@Override
 	protected ResponseModel doInBackground(String... params) {
-		
 		//
 		// Тело процедуры HTTP соединения
 		try{	
