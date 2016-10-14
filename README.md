@@ -1,3 +1,5 @@
+## This library is deprecated. Use new module: https://github.com/jaksab/EasyNetwork
+
 ## Global
 
 This tool allows you to quickly and flexibly configure and perform HTTP requests.
